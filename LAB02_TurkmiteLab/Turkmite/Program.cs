@@ -8,7 +8,7 @@ namespace LAB02_TurkmiteLab
         {
             Mat img = new Mat(200, 200, MatType.CV_8UC3, new Scalar(0, 0, 0));
             var indexer = img.GetGenericIndexer<Vec3b>();
-            Turkmite t = new(indexer);
+            var t = new TriColorTurkmite(indexer);
  
             for(int i=0; i<t.OptimalStepNumber(); i++)
             {
