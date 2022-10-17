@@ -6,23 +6,22 @@ namespace LAB02_TurkmiteLab
     {
         static void Main()
         {
-            Mat img = new Mat(200, 200, MatType.CV_8UC3, new Scalar(0, 0, 0));
-            var indexer = img.GetGenericIndexer<Vec3b>();
-            var t = CreateTurkmite(3,indexer);
+            var img = new DefaultImage();
+            var t = CreateTurkmite(3,img);
  
             for(int i=0; i<t.OptimalStepNumber(); i++)
             {
                 t.Step();
             }
-            Cv2.ImShow("TurkMite", img);
+            img.Show();
             Cv2.WaitKey();
         }
 
-        private static TurkmiteBase CreateTurkmite(int numberOfColors, Mat.Indexer<Vec3b> indexer)
+        private static TurkmiteBase CreateTurkmite(int numberOfColors, IImage img)
         {
             return numberOfColors == 2
-                ? new Turkmite(indexer)
-                : new TriColorTurkmite(indexer);
+                ? new Turkmite(img)
+                : new TriColorTurkmite(img);
         }
     }
 }

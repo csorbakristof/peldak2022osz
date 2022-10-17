@@ -20,7 +20,7 @@ namespace LAB02_TurkmiteLab
         public readonly Vec3b Yellow = new Vec3b(0, 255, 255);
         public readonly Vec3b Red = new Vec3b(0, 0, 255);
 
-        public TriColorTurkmite(Mat.Indexer<Vec3b> indexer) : base(indexer)
+        public TriColorTurkmite(IImage img) : base(img)
         {
         }
 
@@ -28,17 +28,17 @@ namespace LAB02_TurkmiteLab
         {
             if (currentColor == Black)
             {
-                indexer[y, x] = Red;
+                img.SetColor(x,y,Red);
                 direction++;
             }
             else if (currentColor == Red)
             {
-                indexer[y, x] = Yellow;
+                img.SetColor(x, y, Yellow);
                 direction--;
             }
             else
             {
-                indexer[y, x] = Black;
+                img.SetColor(x, y, Black);
                 direction--;
             }
         }

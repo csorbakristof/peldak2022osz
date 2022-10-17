@@ -9,7 +9,7 @@ namespace LAB02_TurkmiteLab
 {
     public class Turkmite : TurkmiteBase
     {
-        public Turkmite(Mat.Indexer<Vec3b> indexer) : base(indexer)
+        public Turkmite(IImage img) : base(img)
         {
         }
 
@@ -22,12 +22,12 @@ namespace LAB02_TurkmiteLab
         {
             if (currentColor == Black)
             {
-                indexer[y, x] = White;
+                img.SetColor(x, y, White);
                 direction++;
             }
             else
             {
-                indexer[y, x] = Black;
+                img.SetColor(x, y, Black);
                 direction--;
             }
         }

@@ -12,18 +12,18 @@ namespace LAB02_TurkmiteLab
         protected int x = 100;
         protected int y = 100;
         protected int direction = 0;  // 0 up, 1 right, 2 down, 3 left
-        protected Mat.Indexer<Vec3b> indexer;
+        protected IImage img;
 
         public abstract int OptimalStepNumber();
 
-        public TurkmiteBase(Mat.Indexer<Vec3b> indexer)
+        public TurkmiteBase(IImage img)
         {
-            this.indexer = indexer;
+            this.img = img;
         }
 
         public void Step()
         {
-            Vec3b currentColor = indexer[y, x];
+            Vec3b currentColor = img.GetColor(x, y);
             
             ApplyRules(currentColor);
 

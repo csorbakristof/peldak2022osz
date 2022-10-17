@@ -14,9 +14,7 @@ namespace Tests
         [Fact]
         public void TestTurn()
         {
-            Mat image = new(200, 200, MatType.CV_8UC3);
-            var indexer = image.GetGenericIndexer<Vec3b>();
-            var t = new TestedTurkmite(indexer);
+            var t = new TestedTurkmite(new DefaultImage());
             Assert.Equal(0, t.Direction);
             t.ApplyRulesForTesting(t.Black);
             Assert.Equal(1, t.Direction);
@@ -24,7 +22,7 @@ namespace Tests
 
         class TestedTurkmite : Turkmite
         {
-            public TestedTurkmite(Mat.Indexer<Vec3b> indexer) : base(indexer)
+            public TestedTurkmite(IImage img) : base(img)
             {
             }
 
