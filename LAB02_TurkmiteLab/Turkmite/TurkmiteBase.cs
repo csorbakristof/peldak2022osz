@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LAB02_TurkmiteLab
 {
-    internal abstract class TurkmiteBase
+    public abstract class TurkmiteBase
     {
         protected int x = 100;
         protected int y = 100;
