@@ -23,7 +23,7 @@ namespace Common.Services
             return questions.Questions;
         }
 
-        public void AddFeedback(string sourceUserID, string sourceUserPassword,
+        public void AddResponse(string sourceUserID, string sourceUserPassword,
             string targetUserID, int questionID, int score, string comment)
         {
             var question = this.questions.Questions.Single(q => q.ID == questionID);

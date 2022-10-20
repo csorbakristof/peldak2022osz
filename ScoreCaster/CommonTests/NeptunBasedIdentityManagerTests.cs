@@ -26,8 +26,8 @@ namespace CommonTests
         }
 
         private const string username = "ABC123";
-        private const string userID = "08DXECB";
-        private const string password = "ZGJVI";
+        private const string userID = "OK8KLB+";
+        private const string password = "H8A+D";
         private const string dummyString = "DUMMY";
 
         [Fact]

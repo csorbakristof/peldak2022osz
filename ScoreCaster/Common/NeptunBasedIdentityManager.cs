@@ -9,9 +9,11 @@ namespace Common
 {
     public class NeptunBasedIdentityManager : IIdentityManager
     {
-        private const string usernameSalt = "A";
-        private const string userIdSalt = "B";
-        private const string passwordSalt = "C";
+        // UserID consists of hash from Neptun code (=part1) + salted hash of part2 (=part2)
+        // Password is salted hash of UserID
+        private const string usernameSalt = "lizzard";
+        private const string userIdSalt = "spock";
+        private const string passwordSalt = "rock";
         private const int userIdPart1Length = 5;
         private const int userIdPart2Length = 2;
 
