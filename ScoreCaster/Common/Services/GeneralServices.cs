@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Services
 {
-    internal class GeneralServices
+    public class GeneralServices
     {
         private IIdentityManager identityManager;
         public GeneralServices(IIdentityManager identityManager)

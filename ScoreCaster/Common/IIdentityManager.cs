@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    internal interface IIdentityManager
+    public interface IIdentityManager
     {
         public (string userID, string password) GenerateIdentity(string username);
 

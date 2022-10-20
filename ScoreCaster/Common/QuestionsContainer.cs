@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    internal class QuestionsContainer
+    public class QuestionsContainer
     {
         public List<Question> Questions { get; set; }
 

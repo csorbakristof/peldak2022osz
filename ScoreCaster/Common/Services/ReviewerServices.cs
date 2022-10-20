@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Services
 {
-    internal class ReviewerServices
+    public class ReviewerServices
     {
         private QuestionsContainer questions;
         private IIdentityManager identityManager;

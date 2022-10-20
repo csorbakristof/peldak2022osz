@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    internal class Response
+    public class Response
     {
         public int Score { get; set; }
         public string Comment { get; set; }

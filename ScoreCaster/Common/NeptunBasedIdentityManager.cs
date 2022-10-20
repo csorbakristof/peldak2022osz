@@ -1,26 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Common
 {
-    internal class NeptunBasedIdentityManager : IIdentityManager
+    public class NeptunBasedIdentityManager : IIdentityManager
     {
-        public (string userID, string password) GenerateIdentity(string username)
+        private const string usernameSalt = "A";
+        private const string userIdSalt = "B";
+        private const string passwordSalt = "C";
+        private const int userIdPart1Length = 5;
+        private const int userIdPart2Length = 2;
+
+        private SHA1 sha = SHA1.Create();
+        private NeptunCodeValidator neptunCodeValidator;
+
+        public NeptunBasedIdentityManager(NeptunCodeValidator neptunCodeValidator)
         {
-            throw new NotImplementedException();
+            this.neptunCodeValidator = neptunCodeValidator;
+        }
+
+        public (string userID, string password) GenerateIdentity(string neptunCode)
+        {
+            if (neptunCode.Equals(string.Empty))
+                throw new ArgumentException("username cannot be empty");
+            if (!neptunCodeValidator.IsValid(neptunCode))
+                throw new ArgumentException($"Invalid neptun code: {neptunCode}");
+            var userID = GetUserIdFromUsername(neptunCode);
+            var password = GetHashBeginning(userID, passwordSalt);
+            return (userID, password);
+        }
+
+        private string GetUserIdFromUsername(string username)
+        {
+            var part1 = GetHashBeginning(username, usernameSalt, userIdPart1Length);
+            var part2 = GetHashBeginning(part1, userIdSalt, userIdPart2Length);
+            return part1 + part2;
+        }
+
+        private string GetHashBeginning(string text, string salt, int length=5)
+        {
+            return Convert.ToBase64String(this.sha.ComputeHash(Encoding.UTF8.GetBytes(text + salt))).Substring(0, length).ToUpper();
         }
 
         public bool IsAuthenticated(string userID, string password)
         {
-            throw new NotImplementedException();
+            return (GetHashBeginning(userID, passwordSalt).Equals(password));
         }
 
         public bool IsValid(string userID)
         {
-            throw new NotImplementedException();
+            if (userID.Length != userIdPart1Length + userIdPart2Length)
+                return false;
+            var part1 = userID.Substring(0, userIdPart1Length);
+            var part2 = userID.Substring(userIdPart1Length, userIdPart2Length);
+            var correctPart2 = GetHashBeginning(part1, userIdSalt, userIdPart2Length);
+            return (part2.Equals(correctPart2));
         }
     }
 }
