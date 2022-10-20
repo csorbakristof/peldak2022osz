@@ -1,0 +1,59 @@
+﻿<Page
+    x:Class="AdminGui.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdminGui"
+    xmlns:core="using:Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Orientation="Vertical">
+        <Border BorderBrush="Black" BorderThickness="1" Background="Beige">
+            <StackPanel Orientation="Vertical">
+                <TextBlock>Új felhasználó generálása</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Neptun kód:</TextBlock>
+                    <TextBox x:Name="NeptunCode"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>User ID:</TextBlock>
+                    <TextBlock x:Name="NewUserID" Text="?"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Jelszó:</TextBlock>
+                    <TextBlock x:Name="NewPassword" Text="?"/>
+                </StackPanel>
+                <Button Content="Generálás" Click="GenerateNewUserIdAndPassword" />
+            </StackPanel>
+        </Border>
+        <Border BorderBrush="Black" BorderThickness="1" Background="Beige">
+            <StackPanel Orientation="Vertical">
+                <TextBlock>Új értékelés leadása</TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Értékelő kódja:</TextBlock>
+                    <TextBox x:Name="SourceUserID"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Értékelő jelszava:</TextBlock>
+                    <TextBox x:Name="SourceUserPassword"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Értékelt felhasználó kódja:</TextBlock>
+                    <TextBox x:Name="TargetUserID"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <Button Content="Teszt adatokkal feltöltés" Click="AddTestData" />
+
+        <TextBlock>Kérdések:</TextBlock>
+        <ItemsControl ItemsSource="{x:Bind Questions}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="core:Question">
+                    <TextBlock Text="{x:Bind Text}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
+</Page>

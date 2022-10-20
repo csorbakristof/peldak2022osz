@@ -1,7 +1,8 @@
-﻿using Common;
-using Common.Services;
+﻿using Core;
+using Core.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace CommonTests
 {
     public class ReviewerServices_GetUsefulnessesTests
     {
-        private readonly QuestionsContainer container = new QuestionsContainer();
+        private readonly ObservableCollection<Question> container = new ObservableCollection<Question>();
         private readonly DummyIdentityManager identityManager = new DummyIdentityManager();
         private readonly ReviewerServices service;
 
@@ -25,7 +26,7 @@ namespace CommonTests
         {
             service = new ReviewerServices(container, identityManager);
             var q = new Question() { ID = questionID, MinResponseLength = 0, Text = String.Empty };
-            container.Questions.Add(q);
+            container.Add(q);
 
             var r1 = new Response()
             {

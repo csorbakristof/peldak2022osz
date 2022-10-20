@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +26,8 @@ namespace CommonTests
         }
 
         private const string username = "ABC123";
-        private const string userID = "OK8KLB+";
-        private const string password = "H8A+D";
+        private const string userID = "OK8KLBY";
+        private const string password = "OISZH";
         private const string dummyString = "DUMMY";
 
         [Fact]

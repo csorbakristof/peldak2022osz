@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using System.Collections.Generic;
+
+namespace Core
 {
     public class Question
     {

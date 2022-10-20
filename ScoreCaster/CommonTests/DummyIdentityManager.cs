@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Core;
 
 namespace CommonTests
 {

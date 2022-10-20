@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Core
 {
     public class NeptunBasedIdentityManager : IIdentityManager
     {
@@ -29,6 +29,7 @@ namespace Common
         {
             if (neptunCode.Equals(string.Empty))
                 throw new ArgumentException("username cannot be empty");
+            neptunCode = neptunCode.ToUpper();
             if (!neptunCodeValidator.IsValid(neptunCode))
                 throw new ArgumentException($"Invalid neptun code: {neptunCode}");
             var userID = GetUserIdFromUsername(neptunCode);
@@ -45,7 +46,8 @@ namespace Common
 
         private string GetHashBeginning(string text, string salt, int length=5)
         {
-            return Convert.ToBase64String(this.sha.ComputeHash(Encoding.UTF8.GetBytes(text + salt))).Substring(0, length).ToUpper();
+            return string.Concat(Convert.ToBase64String(this.sha.ComputeHash(Encoding.UTF8.GetBytes(text + salt)))
+                .ToUpper().Where(c => char.IsLetterOrDigit(c)).Take(length));
         }
 
         public bool IsAuthenticated(string userID, string password)

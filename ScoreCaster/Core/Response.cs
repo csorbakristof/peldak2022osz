@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Core
 {
     public class Response
     {
@@ -14,6 +14,6 @@ namespace Common
         public string SourceUserID { get; set; }
         public string TargetUserID { get; set; }
 
-        public Response? Usefulness { get; set; }
+        public Response Usefulness { get; set; }
     }
 }

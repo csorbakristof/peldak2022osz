@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Services
+namespace Core.Services
 {
     public class GeneralServices
     {
