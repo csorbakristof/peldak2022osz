@@ -40,12 +40,12 @@ namespace Common.Services
             };
 
             question.AddResponse(r);
-
         }
 
         public IEnumerable<Response> GetUsefulnesses(string userID, string password)
         {
-            throw new NotImplementedException();
+            return questions.Questions.SelectMany(q => q.GetResponses())
+                .Where(r => r.SourceUserID == userID && r.Usefulness != null).OfType<Response>();
         }
     }
 }
