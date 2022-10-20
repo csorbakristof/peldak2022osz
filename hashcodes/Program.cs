@@ -1,8 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
-
-Console.WriteLine("Hello, World!");
 
 string code = "ABC124";
 using(var sha = SHA1.Create())
@@ -22,5 +19,4 @@ using(var sha = SHA1.Create())
         sha.ComputeHash(Encoding.UTF8.GetBytes(userID + salt))).Substring(0,5).ToUpper();
 
     Console.WriteLine($"Password: {password}");
-
 }
