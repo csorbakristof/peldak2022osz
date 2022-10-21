@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common
+namespace Core
 {
-    internal class QuestionsContainer
+    public class QuestionsContainer
     {
         public List<Question> Questions { get; set; }
 

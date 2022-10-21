@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Services
+namespace Core.Services
 {
-    internal class ReviewerServices
+    public class ReviewerServices
     {
-        private QuestionsContainer questions;
+        private ObservableCollection<Question> questions;
         private IIdentityManager identityManager;
 
-        public ReviewerServices(QuestionsContainer questionsContainer,
+        public ReviewerServices(ObservableCollection<Question> questionsContainer,
             IIdentityManager identityManager)
         {
             this.questions = questionsContainer;
@@ -20,13 +21,13 @@ namespace Common.Services
 
         public IEnumerable<Question> GetQuestions()
         {
-            return questions.Questions;
+            return questions;
         }
 
-        public void AddFeedback(string sourceUserID, string sourceUserPassword,
+        public void AddResponse(string sourceUserID, string sourceUserPassword,
             string targetUserID, int questionID, int score, string comment)
         {
-            var question = this.questions.Questions.Single(q => q.ID == questionID);
+            var question = this.questions.Single(q => q.ID == questionID);
             if (!identityManager.IsAuthenticated(sourceUserID, sourceUserPassword))
                 throw new ArgumentException($"Invalid source user or password: {sourceUserID}");
             if (!identityManager.IsValid(targetUserID))
@@ -40,12 +41,12 @@ namespace Common.Services
             };
 
             question.AddResponse(r);
-
         }
 
         public IEnumerable<Response> GetUsefulnesses(string userID, string password)
         {
-            throw new NotImplementedException();
+            return questions.SelectMany(q => q.GetResponses())
+                .Where(r => r.SourceUserID == userID && r.Usefulness != null).OfType<Response>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Common
+﻿using System.Collections.Generic;
+
+namespace Core
 {
     public class Question
     {
@@ -8,9 +10,14 @@
 
         private List<Response> responses = new List<Response>();
 
-        internal void AddResponse(Response response)
+        public void AddResponse(Response response)
         {
             responses.Add(response);
+        }
+
+        public IEnumerable<Response> GetResponses()
+        {
+            return responses;
         }
     }
 }

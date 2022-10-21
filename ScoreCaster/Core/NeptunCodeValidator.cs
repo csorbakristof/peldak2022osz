@@ -1,6 +1,6 @@
-﻿namespace Common
+﻿namespace Core
 {
-    class NeptunCodeValidator
+    public class NeptunCodeValidator
     {
         public virtual bool IsValid(string neptunCode)
         {

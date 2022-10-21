@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Common.Services
+namespace Core.Services
 {
-    internal class GeneralServices
+    public class GeneralServices
     {
         private IIdentityManager identityManager;
         public GeneralServices(IIdentityManager identityManager)
