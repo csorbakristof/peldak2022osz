@@ -1,0 +1,48 @@
+﻿@page "/listreviews"
+@using Core
+@inject HttpClient Http
+
+<PageTitle>List reviews</PageTitle>
+
+<h1>Reviews for given user ID</h1>
+<input type="text" @bind="@userID" @oninput="(e)=>userID=e.Value?.ToString()" />
+<input type="text" @bind="@password" @oninput="(e)=>password=e.Value?.ToString()" />
+<button class="btn btn-primary" @onclick="List">List</button>
+
+@if (reviewList.Count == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Score</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in reviewList)
+            {
+                <tr>
+                    <td>@review.Score.ToString()</td>
+                    <td>@review.Comment</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private string userID = "CFRL1CG";
+    private string password = "MDF2Q";
+    private List<Response> reviewList = new List<Response>();
+
+    private async void List()
+    {
+        reviewList.Clear();
+        reviewList.AddRange(await Http.GetFromJsonAsync<Response[]>($"ListReviews?userID={userID}&password={password}"));
+        StateHasChanged();
+    }
+}
