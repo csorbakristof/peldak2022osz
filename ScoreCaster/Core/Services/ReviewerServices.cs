@@ -9,10 +9,10 @@ namespace Core.Services
 {
     public class ReviewerServices
     {
-        private ObservableCollection<Question> questions;
+        private ICollection<Question> questions;
         private IIdentityManager identityManager;
 
-        public ReviewerServices(ObservableCollection<Question> questionsContainer,
+        public ReviewerServices(ICollection<Question> questionsContainer,
             IIdentityManager identityManager)
         {
             this.questions = questionsContainer;

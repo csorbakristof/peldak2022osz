@@ -1,9 +1,27 @@
+using Core;
+using Core.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 
 namespace WebApp
 {
     public class Program
     {
+        public class ServerSidePersistence
+        {
+            public List<Question> Questions = new();
+            public IIdentityManager IdentityManager;
+            public GeneralServices GeneralServices;
+            public ReviewerServices ReviewerServices;
+            public ServerSidePersistence()
+            {
+                this.IdentityManager = new NeptunBasedIdentityManager(new NeptunCodeValidator());
+                this.GeneralServices = new(this.IdentityManager);
+                this.ReviewerServices = new(this.Questions, this.IdentityManager);
+            }
+        }
+        // Temprarily, store all data in server side memory in a static context.
+        public static ServerSidePersistence ServerSideDataAndServices = new();
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
