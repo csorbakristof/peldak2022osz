@@ -17,6 +17,9 @@ namespace WebApp
                 this.IdentityManager = new NeptunBasedIdentityManager(new NeptunCodeValidator());
                 this.GeneralServices = new(this.IdentityManager);
                 this.ReviewerServices = new(this.Questions, this.IdentityManager);
+
+                // Add a default question to test with...
+                this.Questions.Add(new Question() { ID=0, MinResponseLength=0, Text="Question 1 text" });
             }
         }
         // Temprarily, store all data in server side memory in a static context.
