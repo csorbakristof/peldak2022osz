@@ -1,0 +1,36 @@
+﻿@page "/generateuserid"
+@using WebApp.Shared
+@inject HttpClient Http
+
+<PageTitle>Generate User ID</PageTitle>
+
+<h1>Generate User ID</h1>
+
+@if (userIdAndPassword == null)
+{
+    <p>User ID and password have not been generated yet.</p>
+}
+else
+{
+    <p role="status">User ID: @userIdAndPassword.UserID</p>
+    <p role="status">Password: @userIdAndPassword.Password</p>
+}
+
+<input type="text" @bind="@username" @oninput="OnInputEvent" />
+<button class="btn btn-primary" @onclick="Generate">Generate</button>
+
+@code {
+    private string username = "USERNAME";
+    private UserIdAndPassword? userIdAndPassword;
+
+    private void OnInputEvent(ChangeEventArgs changeEvent)
+    {
+        username = (string?)changeEvent?.Value ?? "UNKNOWN";
+    }
+
+    private async void Generate()
+    {
+        userIdAndPassword = await Http.GetFromJsonAsync<UserIdAndPassword>($"GenerateUserId?username={username}");
+        StateHasChanged();
+    }
+}

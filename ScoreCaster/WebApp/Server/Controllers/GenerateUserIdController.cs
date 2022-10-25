@@ -8,9 +8,9 @@ namespace WebApp.Server.Controllers
     public class GenerateUserIdController : Controller
     {
         [HttpGet]
-        public UserIdAndPassword Get()
+        public UserIdAndPassword Get(string? username)
         {
-            return new UserIdAndPassword() { UserID = "USER", Password = "PWD" };
+            return new UserIdAndPassword() { UserID = username ?? "UNKNOWN", Password = "PWD" };
         }
     }
 }
