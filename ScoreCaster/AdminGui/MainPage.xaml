@@ -31,29 +31,63 @@
         <Border BorderBrush="Black" BorderThickness="1" Background="Beige">
             <StackPanel Orientation="Vertical">
                 <TextBlock>Új értékelés leadása</TextBlock>
+                
+                <ListBox x:Name="QuestionListBox" ItemsSource="{x:Bind Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="core:Question">
+                            <TextBlock Text="{x:Bind Text}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListBox>
+
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelő kódja:</TextBlock>
-                    <TextBox x:Name="SourceUserID"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.SourceUserID}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelő jelszava:</TextBlock>
-                    <TextBox x:Name="SourceUserPassword"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=RespondingUserPassword}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelt felhasználó kódja:</TextBlock>
-                    <TextBox x:Name="TargetUserID"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.TargetUserID}"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Pontszám:</TextBlock>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Score}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Megjegyzés:</TextBlock>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Comment}"/>
+                </StackPanel>
+                <Button Content="Értékelés hozzáadása" Click="AddResponse" />
             </StackPanel>
         </Border>
-        <Button Content="Teszt adatokkal feltöltés" Click="AddTestData" />
+        
+        <Button Content="Teszt kérdésekkel feltöltés" Click="AddTestData" />
 
         <TextBlock>Kérdések:</TextBlock>
-        <ItemsControl ItemsSource="{x:Bind Questions}">
+        <ItemsControl x:Name="QuestionsAndResponses" ItemsSource="{x:Bind Mode=TwoWay, Path=Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
-                    <TextBlock Text="{x:Bind Text}"/>
+                    <StackPanel>
+                        <TextBlock Text="{x:Bind Text}"/>
+                        <ItemsControl ItemsSource="{x:Bind Responses}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="core:Response">
+                                <TextBlock Text="{x:Bind Comment}"/>
+
+
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+
+
     </StackPanel>
 </Page>

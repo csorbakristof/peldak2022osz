@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -41,11 +42,36 @@ namespace AdminGui
             this.reviewerServices = new ReviewerServices(Questions, identityManager);
         }
 
+        public Response ResponseToAdd = new Response() { SourceUserID = "OK8KLBY", TargetUserID = "OK8KLBY", Score=3, Comment="ABC" };
+        public string RespondingUserPassword = "OISZH";
+
         private void AddTestData(object sender, RoutedEventArgs e)
         {
             Questions.Add(new Question() { ID = 1, Text = "Első kérdés", MinResponseLength = 0 });
             Questions.Add(new Question() { ID = 2, Text = "Második kérdés", MinResponseLength = 0 });
             Questions.Add(new Question() { ID = 3, Text = "Harmadik kérdés", MinResponseLength = 0 });
+        }
+
+        private async void AddResponse(object sender, RoutedEventArgs e)
+        {
+            // Get selected question
+            if (QuestionListBox.SelectedIndex < 0)
+            {
+                await new MessageDialog("Előbb válassz ki egy kérdést...").ShowAsync();
+                return;
+            }
+            //await new MessageDialog($"Kiválasztott kérdés indexe: {QuestionListBox.SelectedIndex}").ShowAsync();
+            if (!identityManager.IsAuthenticated(ResponseToAdd.SourceUserID, RespondingUserPassword))
+            {
+                await new MessageDialog("Érvénytelen értékelő UserID - jelszó páros...").ShowAsync();
+                return;
+            }
+            if (!identityManager.IsValid(ResponseToAdd.TargetUserID))
+            {
+                await new MessageDialog("Érvénytelen cél UserID").ShowAsync();
+                return;
+            }
+            Questions[QuestionListBox.SelectedIndex].Responses.Add(ResponseToAdd);
         }
 
         private void GenerateNewUserIdAndPassword(object sender, RoutedEventArgs e)

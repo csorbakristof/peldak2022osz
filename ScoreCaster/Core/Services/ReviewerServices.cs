@@ -45,7 +45,7 @@ namespace Core.Services
 
         public IEnumerable<Response> GetUsefulnesses(string userID, string password)
         {
-            return questions.SelectMany(q => q.GetResponses())
+            return questions.SelectMany(q => q.Responses)
                 .Where(r => r.SourceUserID == userID && r.Usefulness != null).OfType<Response>();
         }
     }
