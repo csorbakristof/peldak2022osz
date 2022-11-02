@@ -40,26 +40,29 @@
                     </ItemsControl.ItemTemplate>
                 </ListBox>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelő kódja:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.SourceUserID}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelő jelszava:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=RespondingUserPassword}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelt felhasználó kódja:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.TargetUserID}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Pontszám:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Score}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Megjegyzés:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Comment}"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="300" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0">Értékelő kódja:</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.SourceUserID}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0">Értékelő jelszava:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=RespondingUserPassword}"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0">Értékelt felhasználó kódja:</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.TargetUserID}"/>
+                    <TextBlock Grid.Row="3" Grid.Column="0">Pontszám:</TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Score}"/>
+                    <TextBlock Grid.Row="4" Grid.Column="0">Megjegyzés:</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" MinWidth="300" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Comment}"/>
+                </Grid>
                 <Button Content="Értékelés hozzáadása" Click="AddResponse" />
             </StackPanel>
         </Border>
@@ -70,18 +73,21 @@
         <ItemsControl x:Name="QuestionsAndResponses" ItemsSource="{x:Bind Mode=TwoWay, Path=Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
-                    <StackPanel>
-                        <TextBlock Text="{x:Bind Text}"/>
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <TextBlock MinWidth="200" Text="{x:Bind Text}"/>
+
                         <ItemsControl ItemsSource="{x:Bind Responses}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="core:Response">
-                                <TextBlock Text="{x:Bind Comment}"/>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="core:Response">
+                                    <StackPanel Spacing="5" Orientation="Horizontal">
+                                        <ProgressBar Minimum="0" Maximum="5" Value="{x:Bind Score}" MinWidth="50" MaxWidth="50"/>
+                                        <TextBlock Text="{x:Bind Comment}"/>
+                                    </StackPanel>
 
-
-
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
