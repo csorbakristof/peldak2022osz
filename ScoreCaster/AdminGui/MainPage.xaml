@@ -40,26 +40,41 @@
                     </ItemsControl.ItemTemplate>
                 </ListBox>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelő kódja:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.SourceUserID}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelő jelszava:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=Password}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Értékelt felhasználó kódja:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.TargetUserID}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Pontszám:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.Score}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock>Kommentár:</TextBlock>
-                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.Comment}"/>
-                </StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MaxWidth="200"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Grid.Column="0">Értékelő kódja:</TextBlock>
+                    <TextBox Grid.Row="0" Grid.Column="1"
+                             Text="{x:Bind Mode=TwoWay, Path=NewResponse.SourceUserID}"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0">Értékelő jelszava:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Text="{x:Bind Mode=TwoWay, Path=Password}"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0">Értékelt felhasználó kódja:</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1"
+                             Text="{x:Bind Mode=TwoWay, Path=NewResponse.TargetUserID}"/>
+
+                    <TextBlock Grid.Row="3" Grid.Column="0">Pontszám:</TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1"
+                             Text="{x:Bind Mode=TwoWay, Path=NewResponse.Score}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0">Kommentár:</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1"
+                             Text="{x:Bind Mode=TwoWay, Path=NewResponse.Comment}"/>
+
+                </Grid>
+                
                 <Button Content="Értékelés leadása" Click="AddResponse" />
             </StackPanel>
         </Border>
