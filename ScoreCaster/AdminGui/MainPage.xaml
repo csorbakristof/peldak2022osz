@@ -31,9 +31,18 @@
         <Border BorderBrush="Black" BorderThickness="1" Background="Beige">
             <StackPanel Orientation="Vertical">
                 <TextBlock>Új értékelés leadása</TextBlock>
+
+                <ListBox x:Name="QuestionSelector" ItemsSource="{x:Bind Questions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate x:DataType="core:Question">
+                            <TextBlock Text="{x:Bind Text}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ListBox>
+
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelő kódja:</TextBlock>
-                    <TextBox x:Name="SourceUserID"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.SourceUserID}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelő jelszava:</TextBlock>
@@ -41,8 +50,17 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelt felhasználó kódja:</TextBlock>
-                    <TextBox x:Name="TargetUserID"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.TargetUserID}"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Pontszám:</TextBlock>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.Score}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock>Kommentár:</TextBlock>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=NewResponse.Comment}"/>
+                </StackPanel>
+                <Button Content="Értékelés leadása" Click="AddResponse" />
             </StackPanel>
         </Border>
         <Button Content="Teszt adatokkal feltöltés" Click="AddTestData" />
@@ -51,7 +69,20 @@
         <ItemsControl ItemsSource="{x:Bind Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
-                    <TextBlock Text="{x:Bind Text}"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontWeight="ExtraBold" Text="{x:Bind Text}"/>
+                        <ItemsControl ItemsSource="{x:Bind Path=Responses}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="core:Response">
+                                    <StackPanel Spacing="5" Orientation="Horizontal">
+                                        <ProgressBar MinWidth="100" Minimum="0" Maximum="5" Value="{x:Bind Score}"/>
+                                        <TextBlock Text="{x:Bind Comment}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>

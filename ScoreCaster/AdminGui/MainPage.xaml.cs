@@ -54,5 +54,12 @@ namespace AdminGui
             this.NewUserID.Text = userId;
             this.NewPassword.Text = password;
         }
+
+        public Response NewResponse { get; set; } = new Response();
+        private void AddResponse(object sender, RoutedEventArgs e)
+        {
+            Questions[QuestionSelector.SelectedIndex].AddResponse(NewResponse);
+
+        }
     }
 }

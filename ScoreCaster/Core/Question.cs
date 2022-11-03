@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Core
 {
@@ -8,16 +9,16 @@ namespace Core
         public string Text { get; set; }
         public int MinResponseLength { get; set; }
 
-        private List<Response> responses = new List<Response>();
+        public ObservableCollection<Response> Responses = new ObservableCollection<Response>();
 
         public void AddResponse(Response response)
         {
-            responses.Add(response);
+            Responses.Add(response);
         }
 
         public IEnumerable<Response> GetResponses()
         {
-            return responses;
+            return Responses;
         }
     }
 }
