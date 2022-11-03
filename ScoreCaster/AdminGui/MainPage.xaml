@@ -19,7 +19,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>User ID:</TextBlock>
-                    <TextBlock x:Name="NewUserID" Text="?"/>
+                    <TextBox x:Name="NewUserID" Text="?" IsReadOnly="True"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Jelszó:</TextBlock>
@@ -63,7 +63,7 @@
 
                     <TextBlock Grid.Row="2" Grid.Column="0">Értékelt felhasználó kódja:</TextBlock>
                     <TextBox Grid.Row="2" Grid.Column="1"
-                             Text="{x:Bind Mode=TwoWay, Path=NewResponse.TargetUserID}"/>
+                             Text="{x:Bind UpdateSourceTrigger=PropertyChanged, Path=NewResponse.TargetUserID}"/>
 
                     <TextBlock Grid.Row="3" Grid.Column="0">Pontszám:</TextBlock>
                     <TextBox Grid.Row="3" Grid.Column="1"
