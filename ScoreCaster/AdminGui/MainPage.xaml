@@ -46,7 +46,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelő jelszava:</TextBlock>
-                    <TextBox x:Name="SourceUserPassword"/>
+                    <TextBox Text="{x:Bind Mode=TwoWay, Path=Password}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock>Értékelt felhasználó kódja:</TextBlock>
@@ -69,12 +69,12 @@
         <ItemsControl ItemsSource="{x:Bind Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
-                    <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock FontWeight="ExtraBold" Text="{x:Bind Text}"/>
                         <ItemsControl ItemsSource="{x:Bind Path=Responses}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate x:DataType="core:Response">
-                                    <StackPanel Spacing="5" Orientation="Horizontal">
+                                    <StackPanel Spacing="5" Orientation="Vertical">
                                         <ProgressBar MinWidth="100" Minimum="0" Maximum="5" Value="{x:Bind Score}"/>
                                         <TextBlock Text="{x:Bind Comment}"/>
                                     </StackPanel>

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -56,8 +57,29 @@ namespace AdminGui
         }
 
         public Response NewResponse { get; set; } = new Response();
-        private void AddResponse(object sender, RoutedEventArgs e)
+        public string Password { get; set; }
+
+        private async void AddResponse(object sender, RoutedEventArgs e)
         {
+            if (QuestionSelector.SelectedIndex == -1)
+            {
+                await (new MessageDialog("Nincs kérdés kiválasztva... :( Nemmety..."))
+                    .ShowAsync();
+                return;
+            }
+
+            if (!identityManager.IsAuthenticated(NewResponse.SourceUserID, Password))
+            {
+                await (new MessageDialog("Hibás értékelő user adatok...")).ShowAsync();
+                return;
+            }
+
+            if (!identityManager.IsValid(NewResponse.TargetUserID))
+            {
+                await (new MessageDialog("Hibás értékelt user adatok...")).ShowAsync();
+                return;
+            }
+
             Questions[QuestionSelector.SelectedIndex].AddResponse(NewResponse);
 
         }
