@@ -6,6 +6,9 @@
 
 <h1>Generate User ID</h1>
 
+<input type="text" @bind="@username" @oninput="OnInputEvent" />
+<button class="btn btn-primary" @onclick="Generate">Generate</button>
+
 @if (userIdAndPassword == null)
 {
     <p>User ID and password have not been generated yet.</p>
@@ -15,9 +18,6 @@ else
     <p role="status">User ID: @userIdAndPassword.UserID</p>
     <p role="status">Password: @userIdAndPassword.Password</p>
 }
-
-<input type="text" @bind="@username" @oninput="OnInputEvent" />
-<button class="btn btn-primary" @onclick="Generate">Generate</button>
 
 @code {
     private string username = "USERNAME";

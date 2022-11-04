@@ -20,7 +20,7 @@ namespace WebApp.Server.Controllers
         {
             // TODO: validate username and password
             // Filter on targetUserID
-            return context.Question.SelectMany(q => q.GetResponses());
+            return context.Question.SelectMany(q => q.Responses);
         }
     }
 }
