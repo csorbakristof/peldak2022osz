@@ -9,17 +9,17 @@ namespace WebApp.Server.Controllers
     [Route("[controller]")]
     public class QuestionController : ControllerBase
     {
-        //private readonly ScoreCasterDbContext context;
+        private readonly ScoreCasterDbContext context;
 
-        //public QuestionController(ScoreCasterDbContext context)
-        //{
-        //    this.context = context;
-        //}
+        public QuestionController(ScoreCasterDbContext context)
+        {
+            this.context = context;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Question>>> GetQuestions()
         {
-            return Ok(await Program.ServerSideDataAndServices.ScoreCasterDbContext.Question.ToListAsync());
+            return Ok(await context.Question.ToListAsync());
         }
     }
 }

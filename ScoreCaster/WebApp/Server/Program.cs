@@ -2,6 +2,7 @@ using Core;
 using Core.Services;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using WebApp.Server.Database;
 
 namespace WebApp
@@ -21,10 +22,10 @@ namespace WebApp
                 this.GeneralServices = new(this.IdentityManager);
                 this.ReviewerServices = new(this.Questions, this.IdentityManager);
 
-                DbContextOptionsBuilder<ScoreCasterDbContext> optionBuilder =
-                    new DbContextOptionsBuilder<ScoreCasterDbContext>().UseSqlite(@"Filename=Questions.db");
+                //DbContextOptionsBuilder<ScoreCasterDbContext> optionBuilder =
+                //    new DbContextOptionsBuilder<ScoreCasterDbContext>().UseSqlite(@"Filename=Questions.db");
 
-                this.ScoreCasterDbContext = new ScoreCasterDbContext(optionBuilder.Options);
+                //this.ScoreCasterDbContext = new ScoreCasterDbContext(optionBuilder.Options);
 
                 // Add a default question to test with...
                 //this.Questions.Add(new Question() { ID=0, MinResponseLength=0, Text="Question 1 text" });
@@ -41,6 +42,9 @@ namespace WebApp
 
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDbContext<ScoreCasterDbContext>(
+                options => options.UseSqlite(@"Filename=Questions.db"));
 
             var app = builder.Build();
 

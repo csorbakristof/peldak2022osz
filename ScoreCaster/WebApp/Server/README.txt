@@ -11,5 +11,6 @@ For the command in the "package manager console" window
 "Add-Migration InitialCreate -Project WebApp.Server"
 install nuget "Microsoft.EntityFrameworkCore.Tools"
 
+To create the SqLite database itself (Questions.db):
 PM> update-database –verbose
 
