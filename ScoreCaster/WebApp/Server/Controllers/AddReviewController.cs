@@ -1,5 +1,5 @@
-﻿using Core.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Server.Services;
 
 namespace WebApp.Server.Controllers
 {
@@ -9,9 +9,9 @@ namespace WebApp.Server.Controllers
     {
         private ReviewerServices service;
 
-        public AddReviewController()
+        public AddReviewController(ReviewerServices service)
         {
-            this.service = Program.ServerSideDataAndServices.ReviewerServices;
+            this.service = service;
         }
 
         [HttpGet]

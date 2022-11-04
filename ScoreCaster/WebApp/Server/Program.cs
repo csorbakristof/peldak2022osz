@@ -1,38 +1,36 @@
 using Core;
-using Core.Services;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 using WebApp.Server.Database;
+using WebApp.Server.Services;
 
 namespace WebApp
 {
     public class Program
     {
-        public class ServerSidePersistence
-        {
-            public List<Question> Questions = new();
-            public IIdentityManager IdentityManager;
-            public GeneralServices GeneralServices;
-            public ReviewerServices ReviewerServices;
-            public ScoreCasterDbContext ScoreCasterDbContext;
-            public ServerSidePersistence()
-            {
-                this.IdentityManager = new NeptunBasedIdentityManager(new NeptunCodeValidator());
-                this.GeneralServices = new(this.IdentityManager);
-                this.ReviewerServices = new(this.Questions, this.IdentityManager);
+        //public class ServerSidePersistence
+        //{
+        //    public List<Question> Questions = new();
+        //    public IIdentityManager IdentityManager;
+        //    public GeneralServices GeneralServices;
+        //    public ReviewerServices ReviewerServices;
+        //    public ScoreCasterDbContext ScoreCasterDbContext;
+        //    public ServerSidePersistence()
+        //    {
+        //        this.IdentityManager = new NeptunBasedIdentityManager(new NeptunCodeValidator());
+        //        this.GeneralServices = new(this.IdentityManager);
+        //        this.ReviewerServices = new(this.Questions, this.IdentityManager);
 
-                //DbContextOptionsBuilder<ScoreCasterDbContext> optionBuilder =
-                //    new DbContextOptionsBuilder<ScoreCasterDbContext>().UseSqlite(@"Filename=Questions.db");
+        //        //DbContextOptionsBuilder<ScoreCasterDbContext> optionBuilder =
+        //        //    new DbContextOptionsBuilder<ScoreCasterDbContext>().UseSqlite(@"Filename=Questions.db");
 
-                //this.ScoreCasterDbContext = new ScoreCasterDbContext(optionBuilder.Options);
+        //        //this.ScoreCasterDbContext = new ScoreCasterDbContext(optionBuilder.Options);
 
-                // Add a default question to test with...
-                //this.Questions.Add(new Question() { ID=0, MinResponseLength=0, Text="Question 1 text" });
-            }
-        }
-        // Temprarily, store all data in server side memory in a static context.
-        public static ServerSidePersistence ServerSideDataAndServices = new();
+        //        // Add a default question to test with...
+        //        //this.Questions.Add(new Question() { ID=0, MinResponseLength=0, Text="Question 1 text" });
+        //    }
+        //}
+        //// Temprarily, store all data in server side memory in a static context.
+        //public static ServerSidePersistence ServerSideDataAndServices = new();
 
         public static void Main(string[] args)
         {
@@ -45,6 +43,12 @@ namespace WebApp
 
             builder.Services.AddDbContext<ScoreCasterDbContext>(
                 options => options.UseSqlite(@"Filename=Questions.db"));
+
+            builder.Services.AddSingleton<NeptunCodeValidator>();
+            builder.Services.AddSingleton<IIdentityManager, NeptunBasedIdentityManager>();  // Defines implementation of interface
+            // Note: services using the scoped DbContext should not be singletons...
+            builder.Services.AddScoped<GeneralServices>();
+            builder.Services.AddScoped<ReviewerServices>();
 
             var app = builder.Build();
 

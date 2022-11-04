@@ -1,6 +1,5 @@
-﻿using Core;
-using Core.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebApp.Server.Services;
 using WebApp.Shared;
 
 namespace WebApp.Server.Controllers
@@ -11,9 +10,9 @@ namespace WebApp.Server.Controllers
     {
         private GeneralServices service;
 
-        public GenerateUserIdController()
+        public GenerateUserIdController(GeneralServices service)
         {
-            this.service = Program.ServerSideDataAndServices.GeneralServices;
+            this.service = service;
         }
 
         [HttpGet]
