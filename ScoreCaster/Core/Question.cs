@@ -8,16 +8,16 @@ namespace Core
         public string Text { get; set; }
         public int MinResponseLength { get; set; }
 
-        private List<Response> responses = new List<Response>();
+        public List<Response> Responses = new List<Response>();
 
         public void AddResponse(Response response)
         {
-            responses.Add(response);
+            Responses.Add(response);
         }
 
         public IEnumerable<Response> GetResponses()
         {
-            return responses;
+            return Responses;
         }
     }
 }

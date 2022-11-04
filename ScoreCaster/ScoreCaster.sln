@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdminGui", "AdminGui\AdminG
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{5FB298A9-5EC4-41DB-BBCD-E97B9FB5E1B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Server", "WebApp\Server\WebApp.Server.csproj", "{FDA26813-571D-4E88-B6A4-A6CE8A101002}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Server", "WebApp\Server\WebApp.Server.csproj", "{FDA26813-571D-4E88-B6A4-A6CE8A101002}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Client", "WebApp\Client\WebApp.Client.csproj", "{7A852097-EFE8-4CAF-B2F6-1AF2BEF93202}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Client", "WebApp\Client\WebApp.Client.csproj", "{7A852097-EFE8-4CAF-B2F6-1AF2BEF93202}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Shared", "WebApp\Shared\WebApp.Shared.csproj", "{AF6165EC-3550-4728-813E-9D686BF5B6EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.Shared", "WebApp\Shared\WebApp.Shared.csproj", "{AF6165EC-3550-4728-813E-9D686BF5B6EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

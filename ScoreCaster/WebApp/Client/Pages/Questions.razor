@@ -1,0 +1,30 @@
+﻿@page "/listquestions"
+@using Core
+@using WebApp.Shared
+@inject HttpClient Http
+
+<PageTitle>List of questions</PageTitle>
+
+<h1>Questions</h1>
+
+@if (questions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @foreach (var question in questions)
+    {
+        <p>@question.Text</p>
+    }
+
+}
+
+@code {
+    private Question[]? questions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        questions = await Http.GetFromJsonAsync<Question[]>("Question");
+    }
+}
