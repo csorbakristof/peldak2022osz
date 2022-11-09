@@ -33,7 +33,7 @@ namespace AdminGui
             app = Application.Current as App;
         }
 
-        public Response ResponseToAdd = new Response() { SourceUserID = "OK8KLBY", TargetUserID = "OK8KLBY", Score = 3, Comment = "ABC" };
+        public Response ResponseToAdd = new Response() { SourceUserID = "OK8KLBY", TargetUserID = "OK8KLBY", Score = 3, Comment = "ABC", Usefulness=new Response() { Score=0 } };
         public string RespondingUserPassword = "OISZH";
 
         private async void AddNewResponse(object sender, RoutedEventArgs e)

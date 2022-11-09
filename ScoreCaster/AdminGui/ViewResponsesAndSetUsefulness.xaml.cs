@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -57,5 +58,18 @@ namespace AdminGui
         #region INPC
         public event PropertyChangedEventHandler PropertyChanged;
         #endregion
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.GoBack();
+        }
+
+        private async void ShowOwnUsefulness(object sender, RoutedEventArgs e)
+        {
+            var usefulnesses = app.Questions.SelectMany(q => q.Responses).Where(r => r.SourceUserID == userID).Select(r => r.Usefulness.Score).Where(s=>s>0).ToArray();
+            var mean = usefulnesses.Average();
+            var count = usefulnesses.Length;
+            await (new MessageDialog($"Visszajelzéseid átlagos hasznossága {mean:N2}, összesen {count} hasznosság visszajelzéssel.")).ShowAsync();
+        }
     }
 }

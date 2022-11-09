@@ -18,7 +18,6 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ListBox>
-
         <TextBlock>Kapott visszajelzések:</TextBlock>
         <ItemsControl ItemsSource="{x:Bind Mode=OneWay, Path=ResponsesOnCurrentQuestion}">
             <ItemsControl.ItemTemplate>
@@ -27,10 +26,13 @@
                         <StackPanel Spacing="5" Orientation="Horizontal">
                             <ProgressBar Minimum="0" Maximum="5" Value="{x:Bind Score}" MinWidth="50" MaxWidth="50"/>
                             <TextBlock Text="{x:Bind Comment}"/>
+                            <Slider Minimum="0" Maximum="5" Value="{x:Bind Mode=TwoWay, Path=Usefulness.Score}" Width="100"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+        <Button Content="Saját hasznosság lekérdezése" Click="ShowOwnUsefulness"/>
+        <Button Content="Vissza" Click="Back_Click"/>
     </StackPanel>
 </Page>
