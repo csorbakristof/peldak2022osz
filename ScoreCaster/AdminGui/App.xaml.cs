@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Core.Services;
+using Core;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,6 +25,13 @@ namespace AdminGui
     /// </summary>
     sealed partial class App : Application
     {
+        public ObservableCollection<Question> Questions { get; set; } = new ObservableCollection<Question>();
+
+        public NeptunBasedIdentityManager IdentityManager;
+        public GeneralServices GeneralServices;
+        public ReviewerServices ReviewerServices;
+        public NeptunCodeValidator NeptunCodeValidator;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +40,11 @@ namespace AdminGui
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            this.NeptunCodeValidator = new NeptunCodeValidator();
+            this.IdentityManager = new NeptunBasedIdentityManager(NeptunCodeValidator);
+            this.GeneralServices = new GeneralServices(IdentityManager);
+            this.ReviewerServices = new ReviewerServices(Questions, IdentityManager);
         }
 
         /// <summary>

@@ -28,49 +28,12 @@
                 <Button Content="Generálás" Click="GenerateNewUserIdAndPassword" />
             </StackPanel>
         </Border>
-        <Border BorderBrush="Black" BorderThickness="1" Background="Beige">
-            <StackPanel Orientation="Vertical">
-                <TextBlock>Új értékelés leadása</TextBlock>
-                
-                <ListBox x:Name="QuestionListBox" ItemsSource="{x:Bind Questions}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="core:Question">
-                            <TextBlock Text="{x:Bind Text}"/>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ListBox>
+        <Button Content="Új értékelés leadása..." Click="AddNewResponse_Click"/>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200" />
-                        <ColumnDefinition Width="300" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0">Értékelő kódja:</TextBlock>
-                    <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.SourceUserID}"/>
-                    <TextBlock Grid.Row="1" Grid.Column="0">Értékelő jelszava:</TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=RespondingUserPassword}"/>
-                    <TextBlock Grid.Row="2" Grid.Column="0">Értékelt felhasználó kódja:</TextBlock>
-                    <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.TargetUserID}"/>
-                    <TextBlock Grid.Row="3" Grid.Column="0">Pontszám:</TextBlock>
-                    <TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Score}"/>
-                    <TextBlock Grid.Row="4" Grid.Column="0">Megjegyzés:</TextBlock>
-                    <TextBox Grid.Row="4" Grid.Column="1" MinWidth="300" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Comment}"/>
-                </Grid>
-                <Button Content="Értékelés hozzáadása" Click="AddResponse" />
-            </StackPanel>
-        </Border>
-        
         <Button Content="Teszt kérdésekkel feltöltés" Click="AddTestData" />
 
         <TextBlock>Kérdések:</TextBlock>
-        <ItemsControl x:Name="QuestionsAndResponses" ItemsSource="{x:Bind Mode=TwoWay, Path=Questions}">
+        <ItemsControl x:Name="QuestionsAndResponses" ItemsSource="{x:Bind Mode=TwoWay, Path=app.Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
                     <StackPanel Spacing="5" Orientation="Horizontal">

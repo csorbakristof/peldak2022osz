@@ -1,0 +1,49 @@
+﻿<Page
+    x:Class="AdminGui.AddResponse"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdminGui"
+    xmlns:core="using:Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Orientation="Vertical">
+        <TextBlock>Új értékelés leadása</TextBlock>
+
+        <ListBox x:Name="QuestionListBox" ItemsSource="{x:Bind app.Questions}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="core:Question">
+                    <TextBlock Text="{x:Bind Text}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListBox>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="300" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0">Értékelő kódja:</TextBlock>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.SourceUserID}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0">Értékelő jelszava:</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=RespondingUserPassword}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0">Értékelt felhasználó kódja:</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.TargetUserID}"/>
+            <TextBlock Grid.Row="3" Grid.Column="0">Pontszám:</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Score}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0">Megjegyzés:</TextBlock>
+            <TextBox Grid.Row="4" Grid.Column="1" MinWidth="300" Text="{x:Bind Mode=TwoWay, Path=ResponseToAdd.Comment}"/>
+        </Grid>
+        <Button Content="Értékelés hozzáadása" Click="AddNewResponse" />
+        <Button Content="Mégsem" Click="Cancel" />
+    </StackPanel>
+</Page>
