@@ -26,7 +26,7 @@ namespace AdminGui
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private App app;
+        private readonly App app;
 
         public MainPage()
         {
@@ -51,6 +51,20 @@ namespace AdminGui
         private void AddNewResponse_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(AddResponse));
+        }
+
+        private string ownUserID = "OK8KLBY";
+        private string ownPassword = "OISZH";
+        private async void ViewResponsesForUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (app.IdentityManager.IsAuthenticated(ownUserID, ownPassword))
+            {
+                this.Frame.Navigate(typeof(ViewResponsesAndSetUsefulness), ownUserID);    // Note: parameter forwarded to other page
+            }
+            else
+            {
+                await (new MessageDialog("Érvénytelen UserID és/vagy jelszó")).ShowAsync();
+            }
         }
     }
 }

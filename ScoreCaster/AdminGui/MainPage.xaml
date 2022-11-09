@@ -32,8 +32,18 @@
 
         <Button Content="Teszt kérdésekkel feltöltés" Click="AddTestData" />
 
-        <TextBlock>Kérdések:</TextBlock>
-        <ItemsControl x:Name="QuestionsAndResponses" ItemsSource="{x:Bind Mode=TwoWay, Path=app.Questions}">
+        <Border>
+            <StackPanel>
+                <TextBlock Grid.Row="0" Grid.Column="0">UserID:</TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ownUserID}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0">Értékelő jelszava:</TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind Mode=TwoWay, Path=ownPassword}"/>
+                <Button Content="Visszajelzések megtekintése és értékelése" Click="ViewResponsesForUser_Click"/>
+            </StackPanel>
+        </Border>
+        
+        <TextBlock>Kérdések és válaszok:</TextBlock>
+        <ItemsControl ItemsSource="{x:Bind Mode=TwoWay, Path=app.Questions}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate x:DataType="core:Question">
                     <StackPanel Spacing="5" Orientation="Horizontal">

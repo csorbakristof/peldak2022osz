@@ -25,7 +25,7 @@ namespace AdminGui
     public sealed partial class AddResponse : Page
     {
 
-        private App app;
+        private readonly App app;
 
         public AddResponse()
         {
