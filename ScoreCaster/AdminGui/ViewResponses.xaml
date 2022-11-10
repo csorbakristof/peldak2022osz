@@ -1,0 +1,37 @@
+﻿<Page
+    x:Class="AdminGui.ViewResponses"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AdminGui"
+    xmlns:core="using:Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel>
+        <ListBox x:Name="QuestionListBox" SelectionChanged="QuestionListBox_SelectionChanged" ItemsSource="{x:Bind app.Questions}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="core:Question">
+                    <TextBlock Text="{x:Bind Text}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ListBox>
+
+        <ItemsControl x:Name="Responses" ItemsSource="{x:Bind Mode=OneWay, Path=ResponsesForUserOnSelectedQuestion}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="core:Response">
+                    <StackPanel Spacing="5" Orientation="Horizontal">
+                        <ProgressBar Minimum="0" Maximum="5" Value="{x:Bind Score}" MinWidth="50" MaxWidth="50"/>
+                        <TextBlock Text="{x:Bind Comment}"/>
+                        <Slider Minimum="0" Maximum="5"
+                                Value="{x:Bind Mode=TwoWay, Path=Usefulness.Score}"
+                                Width="100"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Button Content="Saját értékelések hasznossága" Click="Usefulness"/>
+        <Button Content="Vissza" Click="Back"/>
+    </StackPanel>
+</Page>
