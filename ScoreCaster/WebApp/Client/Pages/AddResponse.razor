@@ -1,0 +1,80 @@
+﻿@page "/addresponse"
+@using Core
+@inject HttpClient Http
+
+<PageTitle>Add response</PageTitle>
+
+<h1>Add response</h1>
+User ID: <input type="text" @bind="@userID" @oninput="(e)=>userID=e.Value?.ToString()" /><BR/>
+Password: <input type="text" @bind="@password" @oninput="(e)=>password=e.Value?.ToString()" /><BR/>
+Target user ID: <input type="text" @bind="@targetUserId" @oninput="(e)=>targetUserId=e.Value?.ToString()" /><BR/>
+Score: <input type="text" @bind="@score" @oninput="(e)=>score=int.Parse(e.Value?.ToString())" /><BR/>
+Comment: <input type="text" @bind="@comment" @oninput="(e)=>comment=e.Value?.ToString()" /><BR/>
+
+@if (questionList.Count == 0)
+{
+    <p><em>Retrieving question list...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Score</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i=0; i<questionList.Count; i++)
+            {
+                int idx = i;    // Used to copy the current value into a new local variable
+                <tr>
+                    <td>@questionList[idx].Text</td>
+                    <td><input type="text" @bind-value="@newResponses[idx].Score"/></td>
+                    <td><input type="text" @bind-value="@newResponses[idx].Comment"/></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button class="btn btn-primary" @onclick="AddResponses">Add responses</button>
+@code {
+    private string userID = "CFRL1CG";
+    private string password = "MDF2Q";
+    private string targetUserId = "OK8KLBY";
+    private int score = 3;
+    private string comment = "comment";
+
+    private List<Question> questionList = new List<Question>();
+    private Response[] newResponses = null;
+
+    protected override async void OnInitialized()
+    {
+        base.OnInitialized();
+        await ListQuestions();
+        newResponses = new Response[questionList.Count];
+        for (int i = 0; i < questionList.Count; i++)
+            newResponses[i] = new Response();
+        StateHasChanged();
+    }
+
+    private async Task ListQuestions()
+    {
+        questionList.Clear();
+        questionList.AddRange(await Http.GetFromJsonAsync<Question[]>($"Question"));
+    }
+
+    private async void AddResponses()
+    {
+        for (int i = 0; i < newResponses.Length; i++)
+        {
+            await Http.GetAsync($"AddResponse?userID={userID}&password={password}&targetUserID={targetUserId}&questionID={questionList[i].ID}&score={newResponses[i].Score}&comment={newResponses[i].Comment}");
+            newResponses[i].Score = 0;
+            newResponses[i].Comment = string.Empty;
+        }
+
+        StateHasChanged();
+    }
+}

@@ -9,18 +9,20 @@ namespace WebApp.Server.Controllers
     public class ListReviewsController : Controller
     {
         private ScoreCasterDbContext context;
+        private IIdentityManager identityManager;
 
-        public ListReviewsController(ScoreCasterDbContext context)
+        public ListReviewsController(ScoreCasterDbContext context, IIdentityManager identityManager)
         {
             this.context = context;
+            this.identityManager = identityManager;
         }
 
         [HttpGet]
         public IEnumerable<Response> Get(string userID, string password)
         {
-            // TODO: validate username and password
-            // Filter on targetUserID
-            return context.Question.SelectMany(q => q.Responses);
+            if (!identityManager.IsAuthenticated(userID, password))
+                throw new UnauthorizedAccessException("Invalid userID and/or password...");
+            return context.Question.SelectMany(q => q.Responses).Where(r=>r.TargetUserID == userID);
         }
     }
 }

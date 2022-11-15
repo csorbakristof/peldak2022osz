@@ -28,7 +28,9 @@ namespace WebApp.Server.Services
         public void AddResponse(string sourceUserID, string sourceUserPassword,
             string targetUserID, int questionID, int score, string comment)
         {
-            var question = this.context.Question.Single(q => q.ID == questionID);
+            var question = this.context.Question.SingleOrDefault(q => q.ID == questionID);
+            if (question == null)
+                throw new ArgumentException($"Unknown question ID: {questionID}");
             if (!identityManager.IsAuthenticated(sourceUserID, sourceUserPassword))
                 throw new ArgumentException($"Invalid source user or password: {sourceUserID}");
             if (!identityManager.IsValid(targetUserID))
@@ -42,6 +44,7 @@ namespace WebApp.Server.Services
             };
 
             question.AddResponse(r);
+            this.context.SaveChanges();
         }
 
         public IEnumerable<Response> GetUsefulnesses(string userID, string password)

@@ -5,11 +5,11 @@ namespace WebApp.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AddReviewController : Controller
+    public class AddResponseController : Controller
     {
         private ReviewerServices service;
 
-        public AddReviewController(ReviewerServices service)
+        public AddResponseController(ReviewerServices service)
         {
             this.service = service;
         }
@@ -17,7 +17,7 @@ namespace WebApp.Server.Controllers
         [HttpGet]
         public void Post(string userid, string password, string targetUserID, int questionID, int score, string? comment)
         {
-            service.AddResponse(userid, password, targetUserID, questionID, score, comment);
+            service.AddResponse(userid, password, targetUserID, questionID, score, comment ?? String.Empty);
         }
     }
 }
