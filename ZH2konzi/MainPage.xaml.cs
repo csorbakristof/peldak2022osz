@@ -23,10 +23,12 @@ namespace ZH2konzi
     public sealed partial class MainPage : Page
     {
         public DataModel DataModel { get; set; }
+        public ShowCurrentValueCommand ShowCurrentValueCommand { get; set; }
         public MainPage()
         {
             this.InitializeComponent();
             this.DataModel = new DataModel();
+            ShowCurrentValueCommand = new ShowCurrentValueCommand(this.DataModel);
         }
     }
 }
