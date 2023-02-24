@@ -1,4 +1,5 @@
 ﻿using Core;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,6 +52,25 @@ namespace WebApp.Server.Services
         {
             return this.context.Question.SelectMany(q => q.GetResponses())
                 .Where(r => r.SourceUserID == userID && r.Usefulness != null).OfType<Response>();
+        }
+
+        internal void DeleteQuestion(int questionID)
+        {
+            var question = this.context.Question.Include("Responses").Single(q => q.ID == questionID);
+            foreach (var response in question.Responses)
+                if (response.Usefulness != null)
+                    this.context.Remove(response.Usefulness);
+            foreach (var response in question.Responses)
+                this.context.Remove(response);
+            this.context.Question.Single(q => q.ID == questionID).Responses.Clear();
+            this.context.Remove(question);
+            this.context.SaveChanges();
+        }
+
+        internal void AddQuestion(string text)
+        {
+            this.context.Question.Add(new Question() { Text = text });
+            this.context.SaveChanges();
         }
     }
 }

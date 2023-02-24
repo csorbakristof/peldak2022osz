@@ -6,6 +6,7 @@ namespace WebApp.Server.Database
     public class ScoreCasterDbContext : DbContext
     {
         public DbSet<Question> Question { get; set; }
+
         public ScoreCasterDbContext(DbContextOptions<ScoreCasterDbContext> options)
                 : base(options)
         {

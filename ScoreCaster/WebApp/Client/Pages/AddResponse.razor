@@ -4,13 +4,9 @@
 
 <PageTitle>Add response</PageTitle>
 
-<h1>Add response</h1>
 User ID: <input type="text" @bind="@userID" @oninput="(e)=>userID=e.Value?.ToString()" /><BR/>
 Password: <input type="text" @bind="@password" @oninput="(e)=>password=e.Value?.ToString()" /><BR/>
 Target user ID: <input type="text" @bind="@targetUserId" @oninput="(e)=>targetUserId=e.Value?.ToString()" /><BR/>
-Score: <input type="text" @bind="@score" @oninput="(e)=>score=int.Parse(e.Value?.ToString())" /><BR/>
-Comment: <input type="text" @bind="@comment" @oninput="(e)=>comment=e.Value?.ToString()" /><BR/>
-
 @if (questionList.Count == 0)
 {
     <p><em>Retrieving question list...</em></p>
@@ -44,9 +40,6 @@ else
     private string userID = "CFRL1CG";
     private string password = "MDF2Q";
     private string targetUserId = "OK8KLBY";
-    private int score = 3;
-    private string comment = "comment";
-
     private List<Question> questionList = new List<Question>();
     private Response[] newResponses = null;
 

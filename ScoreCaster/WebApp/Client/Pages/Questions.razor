@@ -5,6 +5,10 @@
 
 <PageTitle>List of questions</PageTitle>
 
+<h1>Add question</h1>
+Text: <input type="text" @bind-value="@newQuestionText"/><BR/>
+<button @onclick="AddQuestion">Add</button>
+
 <h1>Questions</h1>
 
 @if (questions == null)
@@ -15,16 +19,38 @@ else
 {
     @foreach (var question in questions)
     {
-        <p>@question.Text</p>
+        int id = question.ID;
+        <p>@question.Text
+        <button @onclick="() => DeleteQuestion(id)">Delete</button>
+        </p>
     }
-
 }
 
 @code {
+    private string newQuestionText = string.Empty;
+
     private Question[]? questions;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
+    {
+        await RefreshQuestionListAsync();
+    }
+
+    private async Task RefreshQuestionListAsync()
     {
         questions = await Http.GetFromJsonAsync<Question[]>("Question");
+        StateHasChanged();
+    }
+
+    private async void DeleteQuestion(int questionID)
+    {
+        await Http.GetAsync($"DeleteQuestion?id={questionID}");
+        await RefreshQuestionListAsync();
+    }
+
+    private async void AddQuestion()
+    {
+        await Http.GetAsync($"AddQuestion?text={newQuestionText}");
+        await RefreshQuestionListAsync();
     }
 }
