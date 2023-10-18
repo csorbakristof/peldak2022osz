@@ -20,3 +20,5 @@ using(var sha = SHA1.Create())
 
     Console.WriteLine($"Password: {password}");
 }
+
+
